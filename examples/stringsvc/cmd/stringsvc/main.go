@@ -7,9 +7,9 @@ import (
 
 	"github.com/go-kit/kit/log"
 
-	"github.com/ayiga/go-kit-middlewarer/examples/stringsvc"
-	"github.com/ayiga/go-kit-middlewarer/examples/stringsvc/logging"
-	trans "github.com/ayiga/go-kit-middlewarer/examples/stringsvc/transport/http"
+	"github.com/fish2016/go-kit-middlewarer/examples/stringsvc"
+	"github.com/fish2016/go-kit-middlewarer/examples/stringsvc/logging"
+	trans "github.com/fish2016/go-kit-middlewarer/examples/stringsvc/transport/http"
 )
 
 // StringService represents an object that will implement the StringService

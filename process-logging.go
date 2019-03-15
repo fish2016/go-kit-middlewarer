@@ -20,7 +20,7 @@ func processLogging(g *Generator, f *File) {
 	}
 
 	files := []string{
-		filepath.Join(gopath, "src", "github.com", "ayiga", "go-kit-middlewarer", "tmpl", "logging.tmpl"),
+		filepath.Join(gopath, "src", "github.com", "fish2016", "go-kit-middlewarer", "tmpl", "logging.tmpl"),
 	}
 	tmpl, err := extra.ParseFiles(files...)
 	if err != nil {
@@ -28,7 +28,7 @@ func processLogging(g *Generator, f *File) {
 	}
 
 	convertedPath := filepath.ToSlash(f.pkg.dir)
-
+	fmt.Println("processLogging:", convertedPath)
 	endpointPackage := createImportWithPath(path.Join(convertedPath, "endpoint"))
 	basePackage := createImportWithPath(convertedPath)
 
@@ -48,5 +48,5 @@ func processLogging(g *Generator, f *File) {
 }
 
 func init() {
-	registerProcess("logging", processLogging)
+	registerProcess("c", processLogging)
 }

@@ -12,8 +12,8 @@ To utilize this utility, you first need to **build** or **install** it. The
 easiest way to accomplish this is to run the following command:
 
 ```bash
-go get github.com/ayiga/go-kit-middlewarer && \
-go install github.com/ayiga/go-kit-middlewarer
+go get github.com/fish2016/go-kit-middlewarer && \
+go install github.com/fish2016/go-kit-middlewarer
 ```
 
 After that's complete, please ensure that go-middle-warer is in your system's

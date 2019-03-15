@@ -7,7 +7,7 @@ First, the layers for the example service need to be generated. This can be done
 
 - Open a Shell/Terminal
 - Navigate to The String Service Path:
-	```cd $GOPATH/src/github.com/ayiga/go-kit-middlewarer/examples/stringsvc```
+	```cd $GOPATH/src/github.com/fish2016/go-kit-middlewarer/examples/stringsvc```
 - Run go's generate command:
 	```go generate```
 
@@ -16,7 +16,7 @@ Next the binary itself will need to be built. This binary is already written to 
 
 - Open a Shell/Terminal
 - Navigate to the StringService command's main.go folder:
-	```cd $GOPATH/src/github.com/ayiga/go-kit-middlewarer/examples/stringsvc/cmd/stringsvc```
+	```cd $GOPATH/src/github.com/fish2016/go-kit-middlewarer/examples/stringsvc/cmd/stringsvc```
 - Build or install the command: ```go build .``` or ```go install```
 
 ### Testing the Service ###

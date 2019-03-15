@@ -6,7 +6,7 @@ import (
 	"io/ioutil"
 	"net/http"
 
-	"github.com/ayiga/go-kit-middlewarer/encoding"
+	"github.com/fish2016/go-kit-middlewarer/encoding"
 
 	"testing"
 )

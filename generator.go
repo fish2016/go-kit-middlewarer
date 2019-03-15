@@ -40,13 +40,15 @@ func (g *Generator) parsePackageDir(directory string) {
 
 	prefix := filepath.Join(gopath, "src") + string([]rune{filepath.Separator})
 
+	fmt.Println("parsePackageDir prefix:", prefix, d)
 	d, err = filepath.Rel(prefix, d)
 	if err != nil {
 		log.Fatalf("Unable to get a relative path: %s\n", err)
 	}
-
+	fmt.Println("parsePackageDir d:", d)
 	var names []string
-	names = append(names, pkg.GoFiles...)
+	names = append(names, pkg.GoFiles...) //指定目录下的go文件
+	fmt.Println("parsePackageDir::names:", names)
 
 	names = prefixDirectory(directory, names)
 	g.parsePackage(d, names, nil)
@@ -64,6 +66,9 @@ func (g *Generator) parsePackage(directory string, names []string, text interfac
 	var astFiles []*ast.File
 	g.pkg = new(Package)
 	fs := token.NewFileSet()
+
+	fmt.Println("parsePackage:", directory, names)
+	fmt.Println("parsePackage:log.Prefix()", log.Prefix())
 	for _, name := range names {
 		if !strings.HasSuffix(name, ".go") {
 			continue
@@ -73,16 +78,34 @@ func (g *Generator) parsePackage(directory string, names []string, text interfac
 
 		for _, v := range parsedFile.Comments {
 			str := v.Text()
-			if strings.HasPrefix(str, log.Prefix()) {
+			fmt.Println("parsePackage.parsedFile.Comments str:", str)
+			if strings.HasPrefix(str, SubCmdTempl) {
 				lines := strings.Split(str, "\n")
 				if len(lines) <= 0 {
 					continue
 				}
 				var firstLine = lines[0]
 
-				typ := strings.TrimPrefix(firstLine, log.Prefix())
+				//typ := strings.TrimPrefix(firstLine, SubCmdExtra)
+				lineTmp := strings.TrimPrefix(firstLine, SubCmdTempl)
+				arrString := strings.Split(lineTmp, " ")
+				typ := arrString[0]
+
+				//check the validity of subcmd flag
+				if (typ != SubCmdFlagLogging) && (typ != SubCmdFlagUrl) {
+					log.Fatalf("%s: invalid subcmd flag: <%s>", directory, typ)
+				}
+
+				lineTmp = strings.TrimPrefix(lineTmp, typ)
+				lineTmp = strings.TrimSpace(lineTmp)
+
+				if len(lineTmp) > 0 {
+					extras[typ] += (lineTmp + "\n")
+				}
+
 				if len(lines) > 1 {
-					extras[typ] = strings.Join(lines[1:], "\n")
+					//extras[typ] = strings.Join(lines[1:], "\n")
+					extras[typ] += strings.Join(lines[1:], "\n")
 				}
 			}
 		}
@@ -106,6 +129,7 @@ func (g *Generator) parsePackage(directory string, names []string, text interfac
 	g.pkg.files = files
 	g.pkg.dir = directory
 	g.pkg.check(fs, astFiles)
+	fmt.Println("parsePackage g.pkg.name:", g.pkg.name)
 }
 
 // generate does 'things'
@@ -113,6 +137,7 @@ func (g *Generator) generate(typeName string) {
 	// pre-process
 	for _, file := range g.pkg.files {
 		// Set the state for this run of the walker.
+		fmt.Println("generate140:", file.fileName)
 		if file.file != nil {
 			ast.Inspect(file.file, file.genImportsAndTypes)
 		}
@@ -127,6 +152,7 @@ func (g *Generator) generate(typeName string) {
 
 	for _, file := range g.pkg.files {
 		for _, i := range file.interfaces {
+			fmt.Println("Generator range:", i.name)
 			if i.name == typeName {
 				targetFile = file
 				break
@@ -140,7 +166,8 @@ func (g *Generator) generate(typeName string) {
 
 	// begin generation
 	list := strings.Split(*middlewaresToGenerate, ",")
-	list = append(list, "endpoint")
+	//list = append(list, "endpoint")
+	//list = append(list, "default")
 	for _, l := range list {
 		if bindings[l] != nil {
 			bindings[l](g, targetFile)

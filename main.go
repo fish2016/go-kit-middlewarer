@@ -9,8 +9,9 @@ import (
 )
 
 var (
-	typeNames             = flag.String("type", "", "comma-separated list of type names; must be set")
-	middlewaresToGenerate = flag.String("middleware", "logging,instrumenting,transport,zipkin", "comma-seperated list of middlewares to process. Options: [logging,instrumenting,transport,zipkin]")
+	typeNames = flag.String("type", "", "comma-separated list of type names; must be set")
+	//middlewaresToGenerate = flag.String("middleware", "logging,instrumenting,transport,zipkin", "comma-seperated list of middlewares to process. Options: [logging,instrumenting,transport,zipkin]")
+	middlewaresToGenerate = flag.String("middleware", "default", "comma-seperated list of middlewares to process. Options: [logging,instrumenting,transport,zipkin]")
 	summarize             = flag.String("summarize", "", "Prints out the Summary of Found structures intead of generating code")
 	binaryName            = ""
 )
@@ -55,16 +56,20 @@ func main() {
 		dir string
 		g   Generator
 	)
-
+	fmt.Println("main: args[0]=", args[0])
 	if len(args) == 1 && isDirectory(args[0]) {
 		dir = args[0]
+		fmt.Println("main:dir61", dir)
 		g.parsePackageDir(args[0])
 		// parsePackageDir(args[0])
 	} else {
 		dir = filepath.Dir(args[0])
+		fmt.Println("main:dir66", dir)
 		g.parsePackageFiles(args)
 		// parsePackageFiles(args)
 	}
+	fmt.Println("main: dir=", dir)
+	LoadConfig(dir)
 	dir = dir
 	// Run generate for each type.
 	for _, typeName := range types {

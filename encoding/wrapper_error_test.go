@@ -10,7 +10,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/ayiga/go-kit-middlewarer/encoding"
+	"github.com/fish2016/go-kit-middlewarer/encoding"
 	kithttptransport "github.com/go-kit/kit/transport/http"
 )
 

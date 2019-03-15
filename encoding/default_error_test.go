@@ -9,7 +9,7 @@ import (
 	"net/http"
 	"testing"
 
-	"github.com/ayiga/go-kit-middlewarer/encoding"
+	"github.com/fish2016/go-kit-middlewarer/encoding"
 )
 
 func TestDefaultErrorEncodingDecode(t *testing.T) {

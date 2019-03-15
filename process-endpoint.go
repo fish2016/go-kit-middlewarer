@@ -13,7 +13,7 @@ func processEndpoint(g *Generator, f *File) {
 	gopath := os.Getenv("GOPATH")
 	var buf bytes.Buffer
 
-	tmpl, err := template.ParseFiles(filepath.Join(gopath, "src", "github.com", "ayiga", "go-kit-middlewarer", "tmpl", "endpoint.tmpl"))
+	tmpl, err := template.ParseFiles(filepath.Join(gopath, "src", "github.com", "fish2016", "go-kit-middlewarer", "tmpl", "endpoint.tmpl"))
 	if err != nil {
 		log.Fatalf("Template Parse Error: %s", err)
 	}

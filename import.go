@@ -17,13 +17,14 @@ type Import struct {
 }
 
 func createImportWithPath(p string) *Import {
+	fmt.Println("createImportWithPath", p)
 	last := path.Base(p)
 	name := last
 	if strings.Contains(last, "-") {
 		lastPieces := strings.Split(last, "-")
 		name = lastPieces[len(lastPieces)-1]
 	}
-
+	fmt.Println("createImportWithPath", name, p, last)
 	return &Import{
 		name: name,
 		path: p,

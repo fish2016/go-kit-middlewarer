@@ -10,8 +10,8 @@ import (
 
 	httptrans "github.com/go-kit/kit/transport/http"
 
-	"github.com/ayiga/go-kit-middlewarer/encoding"
-	trans "github.com/ayiga/go-kit-middlewarer/examples/stringsvc/transport/http"
+	"github.com/fish2016/go-kit-middlewarer/encoding"
+	trans "github.com/fish2016/go-kit-middlewarer/examples/stringsvc/transport/http"
 )
 
 type arguments struct {

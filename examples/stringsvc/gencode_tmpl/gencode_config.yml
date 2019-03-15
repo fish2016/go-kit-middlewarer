@@ -1,0 +1,6 @@
+pkgname: stringsvc 
+
+template:
+    - {tmpl: logging.tmpl, out: logging/logging_gen.go}
+    - {tmpl: transport-request-response.tmpl, out: http/trans-req-resp_gen.go}
+
